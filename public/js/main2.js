@@ -11,10 +11,10 @@ var loader = new THREE.GLTFLoader();
 var maguro = new THREE.GLTFLoader();
 var egg = new THREE.GLTFLoader();
 
-
 init();
-spawnEgg();
+//spawnEgg();
 spawnMaguro();
+render();
 
 
 function init() {
@@ -51,32 +51,31 @@ function init() {
     scene = new THREE.Scene();
     //scene.background = new THREE.Color(0xff0000, 1);
 
+    //Add MouseMove
+    document.addEventListener('mousemove', onDocumentMouseMove, false);
+
+    //Add Window Resize
+    window.addEventListener('reszie', onWindowResize, false);
 
     //Create light
     keyLight = new THREE.DirectionalLight(new THREE.Color(1, 1, 0), 1.0);
     keyLight.position.set(-100, 0, 100);
 
-    fillLight = new THREE.DirectionalLight(new THREE.Color(1, 1, 0), 0.75);
-    fillLight.position.set(100, 0, 100);
+    //fillLight = new THREE.DirectionalLight(new THREE.Color(1, 1, 0), 0.75);
+    //fillLight.position.set(100, 0, 100);
 
-    backLight = new THREE.DirectionalLight(0xffffff, 1.0);
-    backLight.position.set(100, 0, -100);
+    //backLight = new THREE.DirectionalLight(0xffffff, 1.0);
+    //backLight.position.set(100, 0, -100);
 
     scene.add(keyLight);
-    scene.add(fillLight);
-    scene.add(backLight);
+    //scene.add(fillLight);
+    //scene.add(backLight);
 
     //Create controller
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.campingFactor = 0.25;
     controls.enableZoom = true;
-
-    //Add MouseMove
-    document.addEventListener('mousemove', onDocumentMouseMove, false);
-
-    //Add Window Resize
-    window.addEventListener('reszie', onWindowResize, false);
 
 }
 
@@ -97,7 +96,7 @@ function onDocumentMouseMove(event) {
 
 //Function for spawning 3D model
 function spawnMaguro() {
-    loader.load('../models/maguro.gltf', function (gltf) {
+    maguro.load('../models/maguro.gltf', function (gltf) {
             scene.add(gltf.scene);
             gltf.animations;
             gltf.scene;
@@ -112,11 +111,12 @@ function spawnMaguro() {
         function (error) {
             console.log('An Error Happaned')
         }
+
     );
 }
 
 function spawnEgg() {
-    loader.load('../models/egg.gltf', function (gltf) {
+    egg.load('../models/egg.gltf', function (gltf) {
             scene.add(gltf.scene);
             gltf.animations;
             gltf.scene;

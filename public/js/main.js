@@ -3,7 +3,9 @@ var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 //Renderer
-var renderer = new THREE.WebGLRenderer();
+var renderer = new THREE.WebGLRenderer({
+	alpha: true
+});
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
@@ -26,19 +28,19 @@ controls.enableZoom = true;
 var keyLight = new THREE.DirectionalLight(new THREE.Color(1, 1, 0), 1.0);
 keyLight.position.set(-100, 0, 100);
 
-var fillLight = new THREE.DirectionalLight(new THREE.Color(1, 1, 0), 0.75);
+var fillLight = new THREE.DirectionalLight(new THREE.Color(1, 0, 0), 1);
 fillLight.position.set(100, 0, 100);
 
 var backLight = new THREE.DirectionalLight(0xffffff, 1.0);
 backLight.position.set(100, 0, -100);
 
 scene.add(keyLight);
-scene.add(fillLight);
-scene.add(backLight);
+//scene.add(fillLight);
+//scene.add(backLight);
 
 
 //Instatiate a loader
-var loader = new THREE.GLTFLoader();
+//var loader = new THREE.GLTFLoader();
 var maguro = new THREE.GLTFLoader();
 var egg = new THREE.GLTFLoader();
 
