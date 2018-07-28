@@ -101,19 +101,6 @@ document.addEventListener('mousedown', onDocumentMouseDown, false);
 var sushibool = 0;
 
 function onDocumentMouseDown(event) {
-	// the following line would stop any other event handler from firing
-	// (such as the mouse's TrackballControls)
-	// event.preventDefault();
-	/*
-		if (sushibool == 0) {
-			spawnEgg();
-			scene.remove(maguro);
-			sushibool = 1;
-		} else {
-			spawnMaguro()
-			scene.remove(egg);
-			sushibool = 0;
-		}*/
 
 
 	console.log("Click.");
