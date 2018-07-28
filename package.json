@@ -1,18 +1,18 @@
 {
-  "name": "three-js-boilerplate",
-  "version": "1.0.0",
-  "description": "",
-  "main": "scripts.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github-learnthreejs:learnthreejs/three-js-boilerplate.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.15.3"
-  }
+    "name": "HerukoTest",
+    "version": "0.0.1",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "engine": {
+        "node": "v0.12.0",
+        "npm": "2.12.0"
+    },
+    "dependencies": {
+        "express": "4.16.3",
+        "socket.io": "^2.1.1",
+        "three-fbx-loader": "^1.0.3"
+    },
+    "author": "Xavier, ChunHin Chan",
+    "license": "Xavier, ChunHin Chan"
 }
