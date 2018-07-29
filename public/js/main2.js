@@ -8,13 +8,16 @@ var radius = 100,
     theta = 0;
 
 var loader = new THREE.GLTFLoader();
-var maguro = new THREE.GLTFLoader();
-var egg = new THREE.GLTFLoader();
 
 init();
-//spawnEgg();
-spawnMaguro();
-render();
+//spawnMaguro();
+
+var mesh = loader.load('../models/maguro.gltf', function (gltf) {
+    scene.add(gltf.scene);
+});
+
+
+console.log(mesh);
 
 
 function init() {
@@ -25,8 +28,7 @@ function init() {
 
 
     //Create camera and camera setting
-    camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 10000);
-    //Change camera pos
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); //Change camera pos
     camera.position.z = 10;
     camera.position.y = 5;
 
@@ -47,29 +49,19 @@ function init() {
     container.appendChild(stats.dom);
 */
 
-    //Create scene and background color
+    //Create scene
     scene = new THREE.Scene();
-    //scene.background = new THREE.Color(0xff0000, 1);
 
     //Add MouseMove
-    document.addEventListener('mousemove', onDocumentMouseMove, false);
+    document.addEventListener('mousedown', onDocumentMouseDown, false);
 
     //Add Window Resize
     window.addEventListener('reszie', onWindowResize, false);
 
     //Create light
-    keyLight = new THREE.DirectionalLight(new THREE.Color(1, 1, 0), 1.0);
-    keyLight.position.set(-100, 0, 100);
-
-    //fillLight = new THREE.DirectionalLight(new THREE.Color(1, 1, 0), 0.75);
-    //fillLight.position.set(100, 0, 100);
-
-    //backLight = new THREE.DirectionalLight(0xffffff, 1.0);
-    //backLight.position.set(100, 0, -100);
-
-    scene.add(keyLight);
-    //scene.add(fillLight);
-    //scene.add(backLight);
+    var light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(0, 100, 30);
+    scene.add(light);
 
     //Create controller
     controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -79,6 +71,16 @@ function init() {
 
 }
 
+var mesh;
+
+//Function for spawning 3D model
+function spawnMaguro() {
+    loader.load('../models/maguro.gltf', function (gltf) {
+            scene.add(gltf.scene);
+        }
+
+    );
+}
 
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -87,65 +89,40 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function onDocumentMouseMove(event) {
+function onDocumentMouseDown(event) {
     event.preventDefault();
+
+    //RemoveMesh(mesh);
+    console.log("Click.");
 
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = (event.clientY / window.innerHeight) * 2 + 1;
 }
 
-//Function for spawning 3D model
-function spawnMaguro() {
-    maguro.load('../models/maguro.gltf', function (gltf) {
-            scene.add(gltf.scene);
-            gltf.animations;
-            gltf.scene;
-            gltf.scenes;
-            gltf.camera;
-            gltf.asset;
-        },
+//Remove Mesh
+/*
+function RemoveMesh(myMesh) {
+    scene.remove(myMesh);
+    myMesh.geometry.dispose();
+    myMesh.material.dispose();
+    myMesh = undefined;
+}*/
 
-        function (xhr) {
-            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-        },
-        function (error) {
-            console.log('An Error Happaned')
-        }
 
-    );
-}
-
-function spawnEgg() {
-    egg.load('../models/egg.gltf', function (gltf) {
-            scene.add(gltf.scene);
-            gltf.animations;
-            gltf.scene;
-            gltf.scenes;
-            gltf.camera;
-            gltf.asset;
-        },
-
-        function (xhr) {
-            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-        },
-        function (error) {
-            console.log('An Error Happaned')
-        }
-
-    );
-}
-
-function render() {
+//Output render
+var render = function () {
+    requestAnimationFrame(render);
     /*theta += 0.1;
 
     camera.position.x = radius * Math.sin(THREE.Math.degToRad(theta));
     camera.position.y = radius * Math.sin(THREE.Math.degToRad(theta));
-    camera.position.z = radius * Math.cos(THREE.Math.degToRad(theta));
-    camera.lookAt(scene.position);
+    camera.position.z = radius * Math.cos(THREE.Math.degToRad(theta));*/
+    //camera.lookAt(scene.position);
 
-    camera.updateMatrixWorld();
-*/
+    //camera.updateMatrixWorld();
+
     controls.update();
-
     renderer.render(scene, camera);
 }
+
+render();
